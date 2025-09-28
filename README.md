@@ -98,10 +98,3 @@ Este projeto tem como objetivo aplicar **modelos de Machine Learning supervision
 Este estudo mostrou que a previsão de inadimplência pode ser realizada com **alta acurácia** utilizando técnicas supervisionadas.  
 A **Árvore de Decisão** se destacou como melhor modelo, mas recomenda-se validação temporal, adição de novas variáveis e uso de ensembles (Random Forest, XGBoost) para maior robustez e generalização.  
 
-Próximos passos incluem:
-
-Adição de novas variáveis (comprometimento de renda, histórico de crédito externo).
-
-Testes com algoritmos mais sofisticados.
-
-Implementação em produção com monitoramento contínuo de performance e drift.
