@@ -88,8 +88,7 @@ Este projeto tem como objetivo aplicar **modelos de Machine Learning supervision
 | Arquivo | Descrição |
 |---------|-----------|
 | `Inadimplencia_quantitativa_2.csv` | Base de dados original |
-| `Template_MVP_ML_&_Analytics_Filled.ipynb` | Notebook principal seguindo a estrutura do template MVP |
-| `TecnicaSupervisionadaClassificacao_Inadimplencia.ipynb` | Notebook independente do projeto |
+| `MVP_Gabriel_Pugliese.ipynb` | Notebook com toda a análise |
 | `README.md` | Descrição geral do projeto |
 
 ---
