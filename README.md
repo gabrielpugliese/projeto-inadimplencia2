@@ -1,115 +1,107 @@
 # projeto-inadimplencia2
-🧠 Previsão de Inadimplência com Técnicas Supervisionadas
+MVP Sprint: Machine Learning & Analytics
 
-Este projeto tem como objetivo aplicar modelos de Machine Learning supervisionados para prever a inadimplência de clientes de uma instituição de crédito, utilizando informações financeiras e comportamentais. O estudo compara duas abordagens — Regressão Logística e Árvore de Decisão — e busca apoiar a tomada de decisões mais assertivas na concessão de crédito.
+# 🧠 Previsão de Inadimplência com Técnicas Supervisionadas
 
-📂 Sobre o Dataset
+Este projeto tem como objetivo aplicar **modelos de Machine Learning supervisionados** para prever a inadimplência de clientes de uma instituição de crédito, utilizando informações financeiras e comportamentais. Foram comparadas duas abordagens — **Regressão Logística** e **Árvore de Decisão** — para apoiar a **tomada de decisões mais assertivas** na concessão de crédito.
 
-Origem: Base hipotética construída para fins de análise.
+---
 
-Formato: CSV delimitado por ponto e vírgula (;).
+## 📂 Sobre o Dataset
 
-Registros: 10.986 clientes.
+- **Origem**: Base hipotética.
+- **Formato**: CSV delimitado por ponto e vírgula (`;`)
+- **Registros**: 10.986 clientes
+- **Variável-alvo**: `Resposta` (0 = adimplente, 1 = inadimplente)
 
-Variável-alvo: Resposta (0 = adimplente, 1 = inadimplente).
+### 🧾 Variáveis disponíveis
 
-🧾 Variáveis disponíveis
-Coluna	Descrição
-cliente	Identificador único do cliente (não usado na modelagem)
-Resposta	Status de pagamento do cliente (0 = adimplente, 1 = inadimplente)
-RegRisc	Região de risco (I, II, III, IV)
-Atrasos	Número de dias de atraso nos pagamentos
-TempoRel	Tempo de relacionamento com a instituição (em dias)
-valorFatura	Valor médio da fatura mensal
-GastosAlim	Percentual de gastos com alimentação
-RendaMensal	Renda mensal do cliente
-🧩 Hipóteses levantadas
+| Coluna         | Descrição |
+|----------------|-----------|
+| `cliente`      | Identificador único do cliente |
+| `Resposta`     | Status de pagamento do cliente |
+| `RegRisc`      | Região de risco (I, II, III, IV) |
+| `Atrasos`      | Número de dias de atraso nos pagamentos |
+| `TempoRel`     | Tempo de relacionamento com a instituição (em dias) |
+| `valorFatura`  | Valor médio da fatura mensal |
+| `GastosAlim`   | Percentual de gastos com alimentação |
+| `RendaMensal`  | Renda mensal do cliente |
 
-Clientes com maior número de atrasos têm maior chance de inadimplência ✅
+---
 
-Regiões de risco mais altas (III e IV) estão associadas a maior inadimplência ❌
+## 🧩 Hipóteses levantadas
 
-Menor tempo de relacionamento indica maior risco de inadimplência ✅
+1. Clientes com maior número de atrasos têm maior chance de inadimplência ✅  
+2. Regiões de risco mais altas (III e IV) estão associadas a maior inadimplência ❌  
+3. Menor tempo de relacionamento indica maior risco de inadimplência ✅  
+4. Existe correlação entre valor da fatura e renda mensal ❌  
+5. Gastos com alimentação indicam menor capacidade de pagamento ❌  
 
-Existe correlação entre valor da fatura e renda mensal ❌
+---
 
-Gastos com alimentação indicam menor capacidade de pagamento ❌
+## ⚙️ Etapas Realizadas
 
-⚙️ Etapas Realizadas
-1. 📊 Análise Exploratória de Dados (EDA)
+### 1. 📊 Análise Exploratória de Dados (EDA)
+- Verificação de tipos de dados e dados ausentes
+- Histogramas e boxplots para entender distribuição e outliers
+- Estatísticas descritivas (média, desvio padrão)
+- Matriz de correlação
+- Comparações entre grupos (adimplentes vs inadimplentes)
 
-Verificação de tipos de dados e ausência de valores nulos.
+### 2. 🧼 Pré-Processamento
+- Conversão da variável `cliente` para string
+- Codificação da variável `RegRisc` com **One-Hot Encoding**
+- Tratamento de outliers em `valorFatura` (cap em R$ 10.000)
+- Padronização com `StandardScaler`
+- Separação em conjunto de treino e teste com `train_test_split`
 
-Histogramas e boxplots para explorar distribuição e identificar outliers.
+### 3. 🤖 Modelagem
+- **Baseline**: DummyClassifier
+- **Modelos candidatos**: Regressão Logística e Árvore de Decisão
+- **Validação cruzada** com StratifiedKFold
+- **Otimização de hiperparâmetros** com RandomizedSearchCV
+- Avaliação com métricas: Acurácia, Precisão, Recall, F1-score e ROC AUC
+- Análise de erros via matriz de confusão
 
-Estatísticas descritivas (média, desvio padrão, quartis).
+---
 
-Matriz de correlação entre variáveis numéricas.
+## 🧪 Ferramentas e Bibliotecas
 
-Comparações entre adimplentes vs inadimplentes.
+- Python (`pandas`, `numpy`)
+- Visualização: `seaborn`, `matplotlib`
+- Modelagem: `scikit-learn`
 
-2. 🧼 Pré-Processamento
+---
 
-Conversão da variável cliente para string (tratada apenas como ID).
+## 📉 Principais Insights
 
-Codificação da variável RegRisc em dummies (II, III, IV).
+- **Atrasos**: Boa preditora de inadimplência (correlação ≈ 0.38)  
+- **Tempo de relacionamento**: Clientes com histórico mais longo tendem a ser mais confiáveis  
+- **Regiões de Risco**: Contraintuitivamente, regiões I e II concentraram mais inadimplentes  
+- **Gastos com alimentação**: Maior percentual de gastos se correlaciona com **maior** capacidade de pagamento  
+- **Árvore de Decisão**: Melhor desempenho (acurácia ~98%), mas precisa de validação em dados futuros para evitar overfitting  
 
-Tratamento de outliers em valorFatura (cap em R$ 10.000).
+---
 
-Padronização dos atributos numéricos com StandardScaler.
+## 📁 Organização dos Arquivos
 
-Separação em treino (80%) e teste (20%) com estratificação por classe.
+| Arquivo | Descrição |
+|---------|-----------|
+| `Inadimplencia_quantitativa_2.csv` | Base de dados original |
+| `Template_MVP_ML_&_Analytics_Filled.ipynb` | Notebook principal seguindo a estrutura do template MVP |
+| `TecnicaSupervisionadaClassificacao_Inadimplencia.ipynb` | Notebook independente do projeto |
+| `README.md` | Descrição geral do projeto |
 
-3. 🤖 Modelagem e Avaliação
+---
 
-Baseline: DummyClassifier (classe mais frequente, ~50% de acurácia).
+## 📌 Conclusão
 
-Modelos candidatos:
-
-Regressão Logística (linear, interpretável).
-
-Árvore de Decisão (não linear, interpretável via regras).
-
-Validação cruzada com StratifiedKFold (5 folds).
-
-Otimização de hiperparâmetros com RandomizedSearchCV.
-
-Métricas utilizadas: Acurácia, Precisão, Recall, F1-score, ROC AUC.
-
-Análise de erros com matriz de confusão.
-
-🧪 Ferramentas e Bibliotecas
-
-Python (pandas, numpy)
-
-Visualização: seaborn, matplotlib
-
-Modelagem: scikit-learn
-
-📉 Principais Insights
-
-Atrasos: Melhor preditor de inadimplência (correlação ≈ 0.38).
-
-Tempo de Relacionamento: Clientes mais antigos tendem a ser mais confiáveis.
-
-Regiões de Risco: Contraintuitivamente, I e II concentraram mais inadimplentes.
-
-Gastos com Alimentação: Clientes que gastam mais nessa categoria tendem a ser mais adimplentes.
-
-Árvore de Decisão: Melhor desempenho (acurácia ~98%), mas precisa de validação em novos dados para evitar overfitting.
-
-📁 Organização dos Arquivos
-Arquivo	Descrição
-Inadimplencia_quantitativa_2.csv	Base de dados original.
-Template_MVP_ML_&_Analytics_Filled.ipynb	Notebook principal seguindo a estrutura do template MVP.
-TecnicaSupervisionadaClassificacao_Inadimplencia.ipynb	Notebook independente do projeto.
-README.md	Descrição geral do projeto.
-📌 Conclusão
-
-Este estudo mostrou que a previsão de inadimplência pode ser realizada com alta acurácia utilizando modelos supervisionados. A Árvore de Decisão apresentou melhor desempenho, mas recomenda-se validação em dados futuros e o uso de modelos de ensemble (Random Forest, XGBoost) para maior robustez.
+Este estudo mostrou que a previsão de inadimplência pode ser realizada com **alta acurácia** utilizando técnicas supervisionadas.  
+A **Árvore de Decisão** se destacou como melhor modelo, mas recomenda-se validação temporal, adição de novas variáveis e uso de ensembles (Random Forest, XGBoost) para maior robustez e generalização.  
 
 Próximos passos incluem:
 
+Adição de novas variáveis (comprometimento de renda, histórico de crédito externo).
 
 Testes com algoritmos mais sofisticados.
 
